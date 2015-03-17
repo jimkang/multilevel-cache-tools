@@ -5,10 +5,10 @@ var levelCacheTools = require('level-cache-tools');
 var _ = require('lodash');
 
 function createSimpleCacheServer(opts, done) {
-	return createCacheServer(opts, levelCacheTools.SimpleCache, done);
+	return createCacheServer(opts, levelCacheTools.SimpleCache, 'simple', done);
 }
 
-function createCacheServer(serverOpts, cacheClass, done) {
+function createCacheServer(serverOpts, cacheClass, cacheName, done) {
 	var dbPath;
 	var port;
 	var cacheClass;
@@ -27,7 +27,9 @@ function createCacheServer(serverOpts, cacheClass, done) {
 	var cache = new cacheClass(dbPath);
 	exposeMethods(cache, cache.db);
 
-  multilevel.writeManifest(cache.db, path.dirname(dbPath) + '/manifest.json');
+  multilevel.writeManifest(
+  	cache.db, path.dirname(dbPath) + '/' + cacheName + '-manifest.json'
+  );
 
 	var server = net.createServer(function connectMultilevelToDB(connection) {
 		debugger;

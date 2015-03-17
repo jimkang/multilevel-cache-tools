@@ -1,2 +1,2 @@
 test:
-	node tests/cache-server-tests.js
+	node tests/simple-cache-server-tests.js

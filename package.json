@@ -24,9 +24,8 @@
     "fs-extra": "^0.16.5",
     "jsonfile": "^2.0.0",
     "level": "^0.18.0",
-    "level-cache-tools": "^2.2.0",
+    "level-cache-tools": "git://github.com/jimkang/node-level-cache-tools.git#master",
     "lodash": "^3.5.0",
-    "multilevel": "^6.1.0",
-    "queue-async": "^1.0.7"
+    "multilevel": "^6.1.0"
   }
 }

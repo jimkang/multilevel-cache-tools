@@ -7,10 +7,12 @@ var level = require('level');
 function createServer(serverOpts, done) {
   var dbPath;
   var port;
+  var valueEncoding;
 
   if (serverOpts) {
     dbPath = serverOpts.dbPath;
     port = serverOpts.port;
+    valueEncoding = serverOpts.valueEncoding;
   }
 
   if (!dbPath) {
@@ -20,7 +22,15 @@ function createServer(serverOpts, done) {
     port = 3030;
   }
 
-  var db = level(dbPath);
+  var db;
+
+  if (valueEncoding) {
+    db = level(dbPath, {valueEncoding: valueEncoding});
+  }
+  else {
+    db = level(dbPath);
+  }
+
   var server = net.createServer(connectMultilevelToDB);
 
   function connectMultilevelToDB(connection) {

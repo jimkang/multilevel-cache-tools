@@ -4,25 +4,17 @@ var multilevel = require('multilevel');
 var net = require('net');
 var jsonfile = require('jsonfile');
 var level = require('level');
+var createServer = require('../cache-server').create;
 
 function runServerTest(opts) {
   var cacheDb;
   var connection;
 
-  opts.createServerFn(
-    {
-      dbPath: 'tests/test.db',
-      port: opts.port
-    },
-    connectToServer
-  );
+  createServer(opts, connectToServer);
 
   function connectToServer(error) {
     assert.ok(!error, 'Creates a server without error.');
-    var manifest = jsonfile.readFileSync(
-      __dirname + '/' + opts.manifestFilename
-    );
-    cacheDb = multilevel.client(manifest);
+    cacheDb = multilevel.client();
     connection = net.connect(opts.port);
     connection.on('error', onConnectError);
 
@@ -33,7 +25,7 @@ function runServerTest(opts) {
     rpcStream = cacheDb.createRpcStream();
     connection.pipe(rpcStream).pipe(connection);
 
-    opts.cacheTests(cacheDb, shutDown);
+    cacheDb.put('something', 'test', shutDown);
   }
 
   function onConnectError(error) {
@@ -41,7 +33,9 @@ function runServerTest(opts) {
     assert.ok(!error, 'Connects to multilevel cacheDb without error.');
   }
 
-  function shutDown() {
+  function shutDown(error) {
+    assert.ok(!error, 'Client operation completes without error.');
+
     rpcStream.close();
     connection.end();
 
@@ -50,7 +44,7 @@ function runServerTest(opts) {
 
   function cleanUp(error) {
     assert.ok(!error, 'Can close client database.');
-    fs.remove('tests/test.db');
+    fs.remove(opts.dbPath);
     console.log('Tests done!');
     // TODO: Figure out why multilevel (or an unclosed stream?) makes the process 
     // hang around.
@@ -58,6 +52,7 @@ function runServerTest(opts) {
   }
 }
 
-module.exports = {
-  runServerTest: runServerTest
-};
+runServerTest({
+  port: 3032,
+  dbPath: 'tests/server-test.db'
+});

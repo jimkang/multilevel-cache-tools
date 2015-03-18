@@ -40,6 +40,11 @@ function memoize(opts) {
   return new levelCacheTools.MemoizeCache(cacheDb, opts.fn);
 }
 
+function simple(opts) {
+  return new levelCacheTools.SimpleCache(createConnectedClientDb(opts));
+}
+
 module.exports = {
-  memoize: memoize
+  memoize: memoize,
+  simple: simple
 };

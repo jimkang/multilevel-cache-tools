@@ -45,7 +45,7 @@ function runServerTest(opts) {
   function cleanUp(error) {
     assert.ok(!error, 'Can close client database.');
     fs.remove(opts.dbPath);
-    console.log('Tests done!');
+    console.log('Server tests done!');
     // TODO: Figure out why multilevel (or an unclosed stream?) makes the process 
     // hang around.
     process.exit();

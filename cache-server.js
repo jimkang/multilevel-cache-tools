@@ -1,7 +1,6 @@
 var multilevel = require('multilevel');
 var net = require('net');
 var path = require('path');
-// var levelCacheTools = require('level-cache-tools');
 var _ = require('lodash');
 var level = require('level');
 

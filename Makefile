@@ -1,2 +1,5 @@
+MOCHA = node_modules/.bin/mocha
+
 test:
-	node tests/simple-cache-server-tests.js
+	node tests/server-tests.js
+	$(MOCHA) tests/memoize-cache-tests.js

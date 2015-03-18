@@ -1,4 +1,7 @@
+var cacheServer = require('./cache-server');
+var cacheClient = require('./cache-client');
+
 module.exports = {
-	createChronicler: require('./chronicler'),
-	createServer: require('./chronicler-server')
+	server: cacheServer,
+	client: cacheClient
 };

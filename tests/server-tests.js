@@ -4,7 +4,7 @@ var multilevel = require('multilevel');
 var net = require('net');
 var jsonfile = require('jsonfile');
 var level = require('level');
-var createServer = require('../cache-server').create;
+var createServer = require('../index').server.create;
 
 function runServerTest(opts) {
   var cacheDb;

@@ -2,8 +2,9 @@ var async = require('async');
 var should = require('chai').should();
 var fs = require('fs-extra');
 
-var createServer = require('../cache-server').create;
-var cacheClient = require('../cache-client');
+var tools = require('../index');
+var createServer = tools.server.create;
+var cacheClient = tools.client;
 
 describe('SimpleCache', function () {
   var serverOpts = {

@@ -27,7 +27,7 @@ Next, create a client for your cache that uses the same TCP port as your server:
     function setUpClient() {
       var memoizedFn = multilevelCacheTools.client.memoize({
         fn: asyncFn,
-        port: 30303
+        port: 3030
       });
 
 Then, you can use your cache.

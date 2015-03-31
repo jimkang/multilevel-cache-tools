@@ -1,6 +1,6 @@
 {
   "name": "multilevel-cache-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A multilevel wrapper for level-cache-tools so that you can get at your cache from multiple processes.",
   "main": "index.js",
   "scripts": {

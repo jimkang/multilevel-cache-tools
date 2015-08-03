@@ -15,8 +15,8 @@ function createConnectedClientDb(opts) {
 
   var cacheDb = multilevel.client();
   var connection = net.connect(port);
-  if (opts.onConnectError) {
-    connection.on('error', opts.onConnectError);
+  if (opts.onDisconnect) {
+    connection.on('close', opts.onDisconnect);
   }
 
   var rpcStream = cacheDb.createRpcStream();
